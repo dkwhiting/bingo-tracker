@@ -25,6 +25,7 @@ export function NumberInput({
       <label htmlFor="nextNumber" className="sr-only">
         Next number
       </label>
+
       <input
         ref={inputRef}
         id="nextNumber"
@@ -36,13 +37,10 @@ export function NumberInput({
         onChange={(e) => setValue(e.target.value)}
         aria-describedby="nextNumberHelp"
       />
+
       <button className="btn primary" type="submit">
         Add
       </button>
-      <div id="nextNumberHelp" className="help">
-        Accepts 1–75 or letter+number (B1–B15, I16–I30, N31–N45, G46–G60,
-        O61–O75)
-      </div>
     </form>
   );
 }

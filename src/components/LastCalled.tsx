@@ -1,22 +1,20 @@
-import React from "react";
 import { getLetterForNumber } from "../lib/bingo";
 
 export function LastCalled({ lastThree }: { lastThree: number[] }) {
   return (
     <div className="last-called" aria-live="polite" aria-atomic="true">
-      <span className="section-title">Last 3:</span>
+      <span>Last called:</span>
+
       <ul className="chip-list" role="list">
-        {lastThree.map((n) => (
+        {lastThree.map((n, i) => (
           <li
             key={n}
-            className="chip"
+            className={`chip${i === 0 ? " chip__first" : ""}`}
             aria-label={`Last called ${getLetterForNumber(n)} ${n}`}
           >
-            <span className="chip-letter">{getLetterForNumber(n)}</span>
-            <span className="chip-num">{n}</span>
+            {getLetterForNumber(n)}-{n}
           </li>
         ))}
-        {lastThree.length === 0 && <li className="chip muted">—</li>}
       </ul>
     </div>
   );

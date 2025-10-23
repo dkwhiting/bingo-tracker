@@ -15,16 +15,19 @@
   -moz-osx-font-smoothing: grayscale;
 
   --bg: #0b0b10;
+  --bg-highlight: #0f1220;
   --panel: #12121a;
   --muted: #b6b8c3;
   --text: #e8e9ef;
-  --accent: #ff4fd3;
+  --accent: #ef0fb7;
   --accent-weak: #2a3f6b;
   --called: #34c759;
   --called-bg: #14321c;
   --border: #232334;
   --chip-bg: #1b1b27;
   --error: #ff5d5d;
+
+  background-color: var(--bg);
 }
 
 * {
@@ -41,7 +44,7 @@ body {
     Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   background: radial-gradient(
     1200px 800px at 20% 0%,
-    #0f1220 0%,
+    var(--bg-highlight) 0%,
     var(--bg) 60%
   );
   color: var(--text);
@@ -57,13 +60,9 @@ body {
 
 .topbar {
   display: grid;
-  grid-template-columns: 1fr auto;
   gap: 12px;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
 }
 
 .topbar-right {
@@ -71,11 +70,26 @@ body {
   gap: 8px;
   align-items: start;
   flex-wrap: wrap;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.topbar-left {
+  overflow-x: hidden;
 }
 
 .section-title {
   font-weight: 600;
   margin-right: 8px;
+}
+
+.last-called {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.25rem;
+  align-items: center;
 }
 
 .chip-list {
@@ -96,17 +110,10 @@ body {
   background: var(--chip-bg);
   border: 1px solid var(--border);
   font-weight: 600;
-}
-
-.chip .chip-letter {
-  display: inline-grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--accent-weak);
-  color: #cfe0ff;
-  font-size: 12px;
+  font-size: 1.5rem;
+  &.chip__first {
+    font-size: 2rem;
+  }
 }
 
 .chip .chip-num {
@@ -189,13 +196,26 @@ body {
   min-height: 420px;
 }
 
+.col-header-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .col-header {
   font-weight: 800;
   text-align: center;
-  font-size: 22px;
+  font-size: 3rem;
   letter-spacing: 2px;
   margin-bottom: 6px;
   color: #d5deff;
+  line-height: normal;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cells {
@@ -210,14 +230,16 @@ body {
 .cell {
   display: grid;
   place-items: center;
-  padding: 10px 0;
+  padding: 0.5rem 0px;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: #0f0f16;
   font-variant-numeric: tabular-nums;
+  font-size: 1.5rem;
 }
 
-.cell.called {
+.cell.called,
+.chip.chip__first {
   background: var(--called-bg);
   border-color: color-mix(in oklab, var(--called) 60%, var(--border));
   box-shadow: inset 0 0 0 1px
@@ -235,4 +257,23 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.cell {
+  &:hover {
+    filter: brightness(2);
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 850px) {
+  .cell {
+    padding: 0.25rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .cells {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
